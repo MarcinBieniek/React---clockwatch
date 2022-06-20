@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import TimeCounter from './components/TimeCounter/TimeCounter';
+import ButtonStart from './components/Button/ButtonStart';
+import ButtonStop from './components/Button/ButtonStop';
+import ButtonReset from './components/Button/ButtonReset';
 
 function App() {
+  
+  const start = () => {
+    console.log('Start works')
+  }
+
+  const stop = () => {
+    console.log('Stop works')
+  }
+
+  const reset = () => {
+    console.log('Reset works')
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TimeCounter />
+      <ButtonStart start={start}>Start</ButtonStart>
+      <ButtonStop stop={stop}>Stop</ButtonStop>
+      <ButtonReset reset={reset}>Reset</ButtonReset>
     </div>
   );
 }
