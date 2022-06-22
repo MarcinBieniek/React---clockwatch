@@ -2,27 +2,45 @@ import TimeCounter from './components/TimeCounter/TimeCounter';
 import ButtonStart from './components/Button/ButtonStart';
 import ButtonStop from './components/Button/ButtonStop';
 import ButtonReset from './components/Button/ButtonReset';
+import {useState, useEffect} from 'react';
 
 function App() {
-  
-  const start = () => {
-    console.log('Start works')
+
+  const [time, setTime] = useState(0);
+  const [running, setRunning] = useState(null);
+
+  useEffect(() => {
+
+    let interval;
+    if (running) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
+    } else if (!running) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+    }, [running]);
+
+  const handleStart = () => {
+    setRunning(true)
   }
 
-  const stop = () => {
-    console.log('Stop works')
+  const handleStop = () => {
+    setRunning(false)
   }
 
-  const reset = () => {
-    console.log('Reset works')
+  const handleReset = () => {
+    setTime(0);
+    setRunning(false)
   }
   
   return (
     <div className="App">
-      <TimeCounter />
-      <ButtonStart start={start}>Start</ButtonStart>
-      <ButtonStop stop={stop}>Stop</ButtonStop>
-      <ButtonReset reset={reset}>Reset</ButtonReset>
+      <TimeCounter time={time}/>
+      <ButtonStart start={handleStart}>Start</ButtonStart>
+      <ButtonStop stop={handleStop}>Stop</ButtonStop>
+      <ButtonReset reset={handleReset}>Reset</ButtonReset>
     </div>
   );
 }
